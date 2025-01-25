@@ -90,15 +90,15 @@ public class LinkedList {
         Node newNode = new Node(block);
 
         if (index == 0) {
-            addFirst(block);;
+            addFirst(block);
         } else if (index == size) {
             addLast(block);
         } else {
             Node previous = getNode(index - 1);
             newNode.next = previous.next;
             previous.next = newNode;
-            size++;
         }
+        size++;
     }
 
     /**
@@ -147,7 +147,7 @@ public class LinkedList {
      * equal to size
      */
     public MemoryBlock getBlock(int index) {
-        if (index < 0 || index > size || size == 0) {
+        if (index < 0 || index >= size || size == 0) {
             throw new IllegalArgumentException("index must be between 0 and size");
         }
         return getNode(index).block;
@@ -162,11 +162,12 @@ public class LinkedList {
     public int indexOf(MemoryBlock block) {
         Node current = first;
         int index = 0;
-        while (current.next != null) {
+        while (current != null) {
             if (current.block.equals(block)) {
                 return index;
             }
             index++;
+            current=current.next;
         }
         return -1;
     }
@@ -178,7 +179,7 @@ public class LinkedList {
      */
     public void remove(Node node) {
         if (node == null || size == 0) {
-            throw new IllegalArgumentException("index must be between 0 and size");
+            return;
         }
 
         if (node == first) {
@@ -255,16 +256,20 @@ public class LinkedList {
      * A textual representation of this list, for debugging.
      */
     public String toString() {
-        String str = "";
-        Node current = first;
-        while (current != null) {
-            // str += current.toString();
-            str += "(" + current.block.baseAddress + " , " + current.block.length + ")";
-            if (current.next != null) {
-                str += " ";
+        ListIterator itr = new ListIterator(first); 
+        StringBuilder strBuilder = new StringBuilder();
+        while (itr.hasNext()) {
+            Node current = itr.current; 
+            strBuilder.append("(")
+                      .append(current.block.baseAddress)
+                      .append(" , ")
+                      .append(current.block.length)
+                      .append(")");
+            itr.next(); // Advance the iterator to the next node
+            if (itr.hasNext()) { // Add a space only if there are more nodes
+                strBuilder.append(" ");
             }
-            current = current.next;
         }
-        return str;
+        return strBuilder.toString();
     }
 }
