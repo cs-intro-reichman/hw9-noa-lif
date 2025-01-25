@@ -197,19 +197,30 @@ public class LinkedList {
             if (size == 1) {
                 last = first;
             }
-            size--;
         } else if (node == last) {
-            getNode(size - 1).next = null;
+            last=getNode(size-2);
+            getNode(size - 2).next = null;
             size--;
         } else {
-            Node current = first.next;
-            while (current.next != null) {
-                if (current == node) {
-                    current.next = node.next;
-                    size--;
-                }
-                current = current.next;
+            System.out.println(toString());
+            MemoryBlock block = node.block;
+            int index = indexOf(block);
+            if (index<0){
+                throw new IllegalArgumentException("index must be between 0 and size");
             }
+            getNode(index-1).next = node.next;
+            size--;
+            System.out.println(toString());
+            // Node current = first.next;
+            // while (current.next != null) {
+            //     if (current == node) {
+            //         current.next = node.next;
+            //         size--;
+            //         System.out.println(toString());
+            //         return;
+            //     }
+            //     current = current.next;
+            // }
         }
     }
 
