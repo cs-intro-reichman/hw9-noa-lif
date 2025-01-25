@@ -5,12 +5,6 @@ public class TestHandler {
 
     public TestHandler() {
         this.tester = new Tester();
-        TesterQuestionEnum q = TesterQuestionEnum.MEMORY_SPACE_FREE;
-        boolean b = true;
-        for (int i = 1; i < 7; i++) {
-            b = runTest(q, i);
-            System.out.println(i+" " +b);
-        }
     }
 
     private int getNumberOfTests(TesterQuestionEnum question) {
@@ -2517,9 +2511,6 @@ public class TestHandler {
         String actual = "";
         try {
             int address = memorySpace.malloc(20);
-            // String s = memorySpace.toString()+" ";
-            // boolean b = memorySpace.toString().equals(expectedText);
-            // boolean b2 = address ==0;
             actual += (address == 0 && memorySpace.toString().equals(expectedText));
 
         } catch (Exception e) {
@@ -2782,7 +2773,7 @@ public class TestHandler {
     ///// Defrag tests /////
     private boolean defragTest1() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expectedText = "(0 , 100) \n";
+        String expectedText = "(0 , 100)\n";
         String expected = "true";
         String actual = "";
         try {
@@ -2796,7 +2787,7 @@ public class TestHandler {
 
     private boolean defragTest2() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expectedText = "\n(0 , 100) ";
+        String expectedText = "\n(0 , 100)";
         String expected = "true";
         String actual = "";
         try {
@@ -2811,9 +2802,9 @@ public class TestHandler {
 
     private boolean defragTest3() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expected1 = "\n(0 , 5) (5 , 20) (25 , 20) (45 , 55) ";
-        String expected2 = "(0 , 5) (5 , 20) \n(25 , 20) (45 , 55) ";
-        String expected3 = "(0 , 25) \n(25 , 20) (45 , 55) ";
+        String expected1 = "\n(0 , 5) (5 , 20) (25 , 20) (45 , 55)";
+        String expected2 = "(0 , 5) (5 , 20)\n(25 , 20) (45 , 55)";
+        String expected3 = "(0 , 25)\n(25 , 20) (45 , 55)";
         String expected = "true";
         String actual = "";
         boolean actualB = true;
@@ -2836,9 +2827,9 @@ public class TestHandler {
 
     private boolean defragTest4() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expected1 = "\n(0 , 5) (5 , 20) (25 , 20) (45 , 55) ";
-        String expected2 = "(0 , 5) (5 , 20) (25 , 20) \n(45 , 55) ";
-        String expected3 = "(0 , 45) \n(45 , 55) ";
+        String expected1 = "\n(0 , 5) (5 , 20) (25 , 20) (45 , 55)";
+        String expected2 = "(0 , 5) (5 , 20) (25 , 20)\n(45 , 55)";
+        String expected3 = "(0 , 45)\n(45 , 55)";
         String expected = "true";
         String actual = "";
         boolean actualB = true;
@@ -2862,9 +2853,9 @@ public class TestHandler {
 
     private boolean defragTest5() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expected1 = "\n(0 , 5) (5 , 20) (25 , 20) (45 , 55) ";
-        String expected2 = "(0 , 5) (25 , 20) \n(5 , 20) (45 , 55) ";
-        String expected3 = "(0 , 45) \n(45 , 55) ";
+        String expected1 = "\n(0 , 5) (5 , 20) (25 , 20) (45 , 55)";
+        String expected2 = "(0 , 5) (25 , 20)\n(5 , 20) (45 , 55)";
+        String expected3 = "(0 , 45)\n(45 , 55)";
         String expected = "true";
         String actual = "";
         boolean actualB = true;
