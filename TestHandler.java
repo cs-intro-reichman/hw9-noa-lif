@@ -3,7 +3,6 @@ public class TestHandler {
     
     public TestHandler() {
         this.tester = new Tester();
-        addFirstTest1();
     }
  
     private int getNumberOfTests(TesterQuestionEnum question){
@@ -788,6 +787,10 @@ public class TestHandler {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.add(0, block);
+        MemoryBlock n1 = list.getFirst().block;
+        MemoryBlock n2 = list.getLast().block;
+        int sizee = list.getSize();
+
         String expected = "true";
         String actual = "";
         try {
