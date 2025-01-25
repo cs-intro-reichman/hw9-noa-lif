@@ -58,6 +58,7 @@ public class MemorySpace {
 	 * @return the base address of the allocated block, or -1 if unable to allocate
 	 */
 	public int malloc(int length) {
+
 		for (int i = 0; i < freeList.getSize(); i++) {
             MemoryBlock freeBlock = freeList.getBlock(i);
 
@@ -73,10 +74,10 @@ public class MemorySpace {
                     freeBlock.baseAddress += length;
                     freeBlock.length -= length;
                 }
+
                 return baseAddress;
             }
         }
-
 		return -1;		
 	}
 
@@ -89,6 +90,9 @@ public class MemorySpace {
 	 *            the starting address of the block to freeList
 	 */
 	public void free(int address) {
+		if (allocatedList.getSize()==0){
+			throw new IllegalArgumentException("index must be between 0 and size");
+		}
 		for (int i = 0; i < allocatedList.getSize(); i++) {
             MemoryBlock allocatedBlock = allocatedList.getBlock(i);
             if (allocatedBlock.baseAddress == address) {

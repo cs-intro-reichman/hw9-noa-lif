@@ -1,15 +1,23 @@
+
 public class TestHandler {
+
     private Tester tester;
-    
+
     public TestHandler() {
         this.tester = new Tester();
+        TesterQuestionEnum q = TesterQuestionEnum.MEMORY_SPACE_FREE;
+        boolean b = true;
+        for (int i = 1; i < 7; i++) {
+            b = runTest(q, i);
+            System.out.println(i+" " +b);
+        }
     }
- 
-    private int getNumberOfTests(TesterQuestionEnum question){
+
+    private int getNumberOfTests(TesterQuestionEnum question) {
         switch (question) {
             case LINKED_LIST_GET_NODE:
                 return 7;
-            
+
             case LINKED_LIST_GET_BLOCK:
                 return 8;
 
@@ -21,54 +29,54 @@ public class TestHandler {
 
             case LINKED_LIST_ADD_FIRST:
                 return 5;
-            
+
             case LINKED_LIST_INDEX_OF:
                 return 5;
-            
+
             case LINKED_LIST_REMOVE_INDEX:
                 return 17;
-            
+
             case LINKED_LIST_REMOVE_NODE:
                 return 18;
-            
+
             case LINKED_LIST_REMOVE_ELEMENT:
                 return 18;
-            
+
             case MEMORY_SPACE_MALLOC:
                 return 6;
 
             case MEMORY_SPACE_FREE:
                 return 6;
-            
+
             case MEMORY_SPACE_DEFRAG:
                 return 5;
-        
+
             default:
                 break;
         }
         return 0;
     }
 
-    private boolean runTest(TesterQuestionEnum question, int testNumber){
+    private boolean runTest(TesterQuestionEnum question, int testNumber) {
         switch (question) {
             case LINKED_LIST_GET_NODE:
                 return getNodeTests(testNumber);
-            
+
             case LINKED_LIST_ADD:
                 return addTests(testNumber);
-            
+
             case LINKED_LIST_ADD_LAST:
                 return addLastTests(testNumber);
 
             case LINKED_LIST_ADD_FIRST:
                 return addFirstTests(testNumber);
-            
+
             case LINKED_LIST_INDEX_OF:
                 return indexOfTests(testNumber);
 
             case LINKED_LIST_GET_BLOCK:
                 return getBlockTests(testNumber);
-            
+
             case LINKED_LIST_REMOVE_INDEX:
                 return removeIndexTests(testNumber);
 
@@ -92,7 +100,7 @@ public class TestHandler {
         return false;
     }
 
-    private boolean runAllTests(TesterQuestionEnum question){
+    private boolean runAllTests(TesterQuestionEnum question) {
         int numberOfTests = getNumberOfTests(question);
         boolean passed = true;
         for (int i = 1; i <= numberOfTests; i++) {
@@ -100,7 +108,6 @@ public class TestHandler {
         }
         return passed;
     }
-
 
     public void conclusion() {
         this.tester.conclusion();
@@ -149,7 +156,6 @@ public class TestHandler {
         }
     }
 
-
     //////////////////////////// LinkedList Tests ////////////////////////////
     ///// Add first /// 
     ///// tests handling /////
@@ -191,7 +197,7 @@ public class TestHandler {
             actual += list.getFirst().block.equals(block) && list.getLast().block.equals(block) && list.getSize() == 1;
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
-        } 
+        }
         return this.tester.test("Add a single element to an empty list", expected, actual);
     }
 
@@ -207,7 +213,7 @@ public class TestHandler {
             actual += list.getFirst().block.equals(block2) && list.getLast().block.equals(block) && list.getSize() == 2;
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
-        } 
+        }
         return this.tester.test("Add a second element to the front of the list", expected, actual);
     }
 
@@ -225,7 +231,7 @@ public class TestHandler {
             actual += list.getFirst().block.equals(block3) && list.getLast().block.equals(block) && list.getSize() == 3;
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
-        } 
+        }
         return this.tester.test("Add a third element to the front of the list", expected, actual);
     }
 
@@ -245,7 +251,7 @@ public class TestHandler {
             actual += list.getFirst().block.equals(block4) && list.getLast().block.equals(block) && list.getSize() == 4;
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
-        } 
+        }
         return this.tester.test("Add a fourth element to the front of the list", expected, actual);
     }
 
@@ -267,7 +273,7 @@ public class TestHandler {
             actual += list.getFirst().block.equals(block5) && list.getLast().block.equals(block) && list.getSize() == 5;
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
-        } 
+        }
         return this.tester.test("Add a fifth element to the front of the list", expected, actual);
     }
 
@@ -311,7 +317,7 @@ public class TestHandler {
             actual += list.getFirst().block.equals(block) && list.getLast().block.equals(block) && list.getSize() == 1 && compareLinkedLists(list, createLinkedList(new MemoryBlock[]{block}));
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
-        } 
+        }
         return this.tester.test("Add a single element to an empty list", expected, actual);
     }
 
@@ -327,11 +333,11 @@ public class TestHandler {
             actual += list.getFirst().block.equals(block) && list.getLast().block.equals(block2) && list.getSize() == 2 && compareLinkedLists(list, createLinkedList(new MemoryBlock[]{block, block2}));
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
-        } 
+        }
         return this.tester.test("Add a second element to the end of the list", expected, actual);
     }
 
-    private boolean addLastTest3(){
+    private boolean addLastTest3() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addLast(block);
@@ -345,11 +351,11 @@ public class TestHandler {
             actual += list.getFirst().block.equals(block3) && list.getLast().block.equals(block2) && list.getSize() == 3 && compareLinkedLists(list, createLinkedList(new MemoryBlock[]{block3, block, block2}));
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
-        } 
+        }
         return this.tester.test("Add a third element to the end of the list", expected, actual);
     }
 
-    private boolean addLastTest4(){
+    private boolean addLastTest4() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addLast(block);
@@ -367,7 +373,7 @@ public class TestHandler {
         return this.tester.test("Add a second element to the front of the list, then add a third element to the end of the list", expected, actual);
     }
 
-    private boolean addLastTest5(){
+    private boolean addLastTest5() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addLast(block);
@@ -578,7 +584,7 @@ public class TestHandler {
                 return getBlockTest3();
             case 4:
                 return getBlockTest4();
-            case 5: 
+            case 5:
                 return getBlockTest5();
             case 6:
                 return getBlockTest6();
@@ -623,7 +629,6 @@ public class TestHandler {
         return this.tester.test("Get the second element in the list", expected, actual);
     }
 
-
     private boolean getBlockTest3() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
@@ -663,7 +668,6 @@ public class TestHandler {
         }
         return this.tester.test("try to get a negative index", expected, actual);
     }
-
 
     private boolean getBlockTest5() {
         LinkedList list = new LinkedList();
@@ -740,7 +744,7 @@ public class TestHandler {
         } catch (IllegalArgumentException e) {
             actual = TesterMessagesEnum.ERROR + " IllegalArgumentException: " + e.getMessage();
         } catch (NullPointerException e) {
-            actual = TesterMessagesEnum.ERROR + " NullPointerException: " + e.getMessage();  
+            actual = TesterMessagesEnum.ERROR + " NullPointerException: " + e.getMessage();
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
@@ -893,7 +897,7 @@ public class TestHandler {
         return this.tester.test("Add a fifth element to the front of the list", expected, actual);
     }
 
-    private boolean addTest7(){
+    private boolean addTest7() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.add(0, block);
@@ -915,9 +919,9 @@ public class TestHandler {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
         return this.tester.test("try to get an index that is larger than size", expected, actual);
-    }    
+    }
 
-    private boolean addTest8(){
+    private boolean addTest8() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.add(0, block);
@@ -1003,7 +1007,6 @@ public class TestHandler {
         return this.tester.test("Get the index of the second element in the list", expected, actual);
     }
 
-
     private boolean indexOfTest3() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
@@ -1038,7 +1041,7 @@ public class TestHandler {
         try {
             index = list.indexOf(block4);
             actual += list.getNode(index).block.equals(block4);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             if (index == -1) {
                 actual = TesterMessagesEnum.ERROR + " IllegalArgumentException due to unfound index: " + e.getMessage();
             } else {
@@ -1138,7 +1141,7 @@ public class TestHandler {
         try {
             list.remove(n);
             actual += list.getSize() == 0;
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             actual = TesterMessagesEnum.ERROR + " NullPointerException!";
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
@@ -1289,7 +1292,7 @@ public class TestHandler {
         return this.tester.test("Remove middle element in the list then remove first", expected, actual);
     }
 
-    private boolean removeNodeTest9(){
+    private boolean removeNodeTest9() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -1314,7 +1317,7 @@ public class TestHandler {
         return this.tester.test("Remove from start then remove from end of the list", expected, actual);
     }
 
-    private boolean removeNodeTest10(){
+    private boolean removeNodeTest10() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -1339,7 +1342,7 @@ public class TestHandler {
         return this.tester.test("Remove from end then remove from start of the list", expected, actual);
     }
 
-    private boolean removeNodeTest11(){
+    private boolean removeNodeTest11() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -1364,7 +1367,7 @@ public class TestHandler {
         return this.tester.test("Remove from end then remove from middle of the list", expected, actual);
     }
 
-    private boolean removeNodeTest12(){
+    private boolean removeNodeTest12() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -1385,11 +1388,11 @@ public class TestHandler {
             actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block3) == -1);
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
-        } 
+        }
         return this.tester.test("Remove from start then remove from middle of the list", expected, actual);
     }
 
-    private boolean removeNodeTest13(){
+    private boolean removeNodeTest13() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -1414,7 +1417,7 @@ public class TestHandler {
         return this.tester.test("Remove from middle 2 times", expected, actual);
     }
 
-    private boolean removeNodeTest14(){
+    private boolean removeNodeTest14() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -1443,7 +1446,7 @@ public class TestHandler {
         return this.tester.test("Remove middle then end, then start", expected, actual);
     }
 
-    private boolean removeNodeTest15(){
+    private boolean removeNodeTest15() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -1474,9 +1477,9 @@ public class TestHandler {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
         return this.tester.test("Remove all elements in the list", expected, actual);
-    } 
-    
-    private boolean removeNodeTest16(){
+    }
+
+    private boolean removeNodeTest16() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -1496,7 +1499,7 @@ public class TestHandler {
         return this.tester.test("Remove a non existing node", expected, actual);
     }
 
-    private boolean removeNodeTest17(){
+    private boolean removeNodeTest17() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -1521,7 +1524,7 @@ public class TestHandler {
         return this.tester.test("Remove back to back from start", expected, actual);
     }
 
-    private boolean removeNodeTest18(){
+    private boolean removeNodeTest18() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -1601,423 +1604,424 @@ public class TestHandler {
         return false;
     }
 
-        ///// Remove Element tests /////
+    ///// Remove Element tests /////
         private boolean removeElementTest1() {
-            LinkedList list = new LinkedList();
-            MemoryBlock n = null;
-            String expected = TesterMessagesEnum.ERROR + " IllegalArgumentException: index must be between 0 and size";
-            String actual = "";
-            try {
-                list.remove(n);
-                actual += list.getSize() == 0;
-            } catch (NullPointerException e){
-                actual = TesterMessagesEnum.ERROR + " NullPointerException: " + e.getMessage();
-            } catch (IllegalArgumentException e) {
-                actual = TesterMessagesEnum.ERROR + " IllegalArgumentException: " + e.getMessage();
-            } catch (Exception e) { 
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove a null element", expected, actual);
+        LinkedList list = new LinkedList();
+        MemoryBlock n = null;
+        String expected = TesterMessagesEnum.ERROR + " IllegalArgumentException: index must be between 0 and size";
+        String actual = "";
+        try {
+            list.remove(n);
+            actual += list.getSize() == 0;
+        } catch (NullPointerException e) {
+            actual = TesterMessagesEnum.ERROR + " NullPointerException: " + e.getMessage();
+        } catch (IllegalArgumentException e) {
+            actual = TesterMessagesEnum.ERROR + " IllegalArgumentException: " + e.getMessage();
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest2() {
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
-                list.remove(block);
-                actual += (actualB && list.getSize() == 0 && list.getFirst() == null && list.getLast() == null);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove the first element in the list", expected, actual);
+        return this.tester.test("Remove a null element", expected, actual);
+    }
+
+    private boolean removeElementTest2() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
+            list.remove(block);
+            actual += (actualB && list.getSize() == 0 && list.getFirst() == null && list.getLast() == null);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest3() {
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block));
-                list.remove(block2);
-                actual += (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove the first element in the list (not the only one)", expected, actual);
+        return this.tester.test("Remove the first element in the list", expected, actual);
+    }
+
+    private boolean removeElementTest3() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block));
+            list.remove(block2);
+            actual += (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest4() {
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
-                list.remove(list.getLast().block);
-                actual += (actualB && list.getSize() == 0 && list.getFirst() == null && list.getLast() == null);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove the last element in the list", expected, actual);
+        return this.tester.test("Remove the first element in the list (not the only one)", expected, actual);
+    }
+
+    private boolean removeElementTest4() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
+            list.remove(list.getLast().block);
+            actual += (actualB && list.getSize() == 0 && list.getFirst() == null && list.getLast() == null);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest5() {
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block));
-                list.remove(list.getLast().block);
-                actual += (actualB && list.getSize() == 1 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block2));
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove the last element in the list (not the only one)", expected, actual);
+        return this.tester.test("Remove the last element in the list", expected, actual);
+    }
+
+    private boolean removeElementTest5() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block));
+            list.remove(list.getLast().block);
+            actual += (actualB && list.getSize() == 1 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block2));
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest6() {
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3));
-                list.remove(list.getBlock(1));
-                actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3));
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove a middle element in the list", expected, actual);
+        return this.tester.test("Remove the last element in the list (not the only one)", expected, actual);
+    }
+
+    private boolean removeElementTest6() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3));
+            list.remove(list.getBlock(1));
+            actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3));
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest7() {
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            MemoryBlock block4 = new MemoryBlock(40, 4000);
-            list.addLast(block4);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
-                list.remove(list.getBlock(1)); // block removed
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4) && list.indexOf(block) == -1);
-                list.remove(list.getBlock(2)); // block4 removed
-                actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3) && list.indexOf(block4) == -1);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove middle element in the list then remove last", expected, actual);
+        return this.tester.test("Remove a middle element in the list", expected, actual);
+    }
+
+    private boolean removeElementTest7() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        MemoryBlock block4 = new MemoryBlock(40, 4000);
+        list.addLast(block4);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
+            list.remove(list.getBlock(1)); // block removed
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4) && list.indexOf(block) == -1);
+            list.remove(list.getBlock(2)); // block4 removed
+            actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3) && list.indexOf(block4) == -1);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest8() {
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            MemoryBlock block4 = new MemoryBlock(40, 4000);
-            list.addLast(block4);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
-                list.remove(list.getBlock(1)); // block removed
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4) && list.indexOf(block) == -1);
-                list.remove(list.getBlock(0)); // block2 removed
-                actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block3) && list.getLast().block.equals(block4) && list.indexOf(block2) == -1);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove middle element in the list then remove first", expected, actual);
+        return this.tester.test("Remove middle element in the list then remove last", expected, actual);
+    }
+
+    private boolean removeElementTest8() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        MemoryBlock block4 = new MemoryBlock(40, 4000);
+        list.addLast(block4);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
+            list.remove(list.getBlock(1)); // block removed
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4) && list.indexOf(block) == -1);
+            list.remove(list.getBlock(0)); // block2 removed
+            actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block3) && list.getLast().block.equals(block4) && list.indexOf(block2) == -1);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest9(){
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            MemoryBlock block4 = new MemoryBlock(40, 4000);
-            list.addLast(block4);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
-                list.remove(list.getBlock(0)); // block2 removed
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block2) == -1);
-                list.remove(list.getBlock(0)); // block removed
-                actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block3) && list.getLast().block.equals(block4) && list.indexOf(block) == -1);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove from start then remove from end of the list", expected, actual);
+        return this.tester.test("Remove middle element in the list then remove first", expected, actual);
+    }
+
+    private boolean removeElementTest9() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        MemoryBlock block4 = new MemoryBlock(40, 4000);
+        list.addLast(block4);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
+            list.remove(list.getBlock(0)); // block2 removed
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block2) == -1);
+            list.remove(list.getBlock(0)); // block removed
+            actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block3) && list.getLast().block.equals(block4) && list.indexOf(block) == -1);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest10(){
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            MemoryBlock block4 = new MemoryBlock(40, 4000);
-            list.addLast(block4);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
-                list.remove(list.getBlock(3)); // block4 removed
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3) && list.indexOf(block4) == -1);
-                list.remove(list.getBlock(0)); // block2 removed
-                actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block) && list.getLast().block.equals(block3) && list.indexOf(block2) == -1);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove from end then remove from start of the list", expected, actual);
+        return this.tester.test("Remove from start then remove from end of the list", expected, actual);
+    }
+
+    private boolean removeElementTest10() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        MemoryBlock block4 = new MemoryBlock(40, 4000);
+        list.addLast(block4);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
+            list.remove(list.getBlock(3)); // block4 removed
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3) && list.indexOf(block4) == -1);
+            list.remove(list.getBlock(0)); // block2 removed
+            actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block) && list.getLast().block.equals(block3) && list.indexOf(block2) == -1);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest11(){
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            MemoryBlock block4 = new MemoryBlock(40, 4000);
-            list.addLast(block4);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
-                list.remove(list.getBlock(3)); // block4 removed
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3) && list.indexOf(block4) == -1);
-                list.remove(list.getBlock(1)); // block removed
-                actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3) && list.indexOf(block) == -1);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove from end then remove from middle of the list", expected, actual);
+        return this.tester.test("Remove from end then remove from start of the list", expected, actual);
+    }
+
+    private boolean removeElementTest11() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        MemoryBlock block4 = new MemoryBlock(40, 4000);
+        list.addLast(block4);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
+            list.remove(list.getBlock(3)); // block4 removed
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3) && list.indexOf(block4) == -1);
+            list.remove(list.getBlock(1)); // block removed
+            actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3) && list.indexOf(block) == -1);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest12(){
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            MemoryBlock block4 = new MemoryBlock(40, 4000);
-            list.addLast(block4);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
-                list.remove(list.getBlock(0)); // block2 removed
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block2) == -1);
-                list.remove(list.getBlock(1)); // block3 removed
-                actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block3) == -1);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            } 
-            return this.tester.test("Remove from start then remove from middle of the list", expected, actual);
+        return this.tester.test("Remove from end then remove from middle of the list", expected, actual);
+    }
+
+    private boolean removeElementTest12() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        MemoryBlock block4 = new MemoryBlock(40, 4000);
+        list.addLast(block4);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
+            list.remove(list.getBlock(0)); // block2 removed
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block2) == -1);
+            list.remove(list.getBlock(1)); // block3 removed
+            actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block3) == -1);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest13(){
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            MemoryBlock block4 = new MemoryBlock(40, 4000);
-            list.addLast(block4);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
-                list.remove(list.getBlock(1)); // block removed
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4) && list.indexOf(block) == -1);
-                list.remove(list.getBlock(1)); // block3 removed
-                actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4) && list.indexOf(block3) == -1);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove from middle 2 times", expected, actual);
+        return this.tester.test("Remove from start then remove from middle of the list", expected, actual);
+    }
+
+    private boolean removeElementTest13() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        MemoryBlock block4 = new MemoryBlock(40, 4000);
+        list.addLast(block4);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
+            list.remove(list.getBlock(1)); // block removed
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4) && list.indexOf(block) == -1);
+            list.remove(list.getBlock(1)); // block3 removed
+            actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4) && list.indexOf(block3) == -1);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest14(){
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            MemoryBlock block4 = new MemoryBlock(40, 4000);
-            list.addLast(block4);
-            MemoryBlock block5 = new MemoryBlock(50, 5000);
-            list.addLast(block5);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 5 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block5));
-                list.remove(list.getBlock(2)); // block3 removed
-                actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block5) && list.indexOf(block3) == -1);
-                list.remove(list.getBlock(3)); // block5 removed
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4) && list.indexOf(block5) == -1);
-                list.remove(list.getBlock(0)); // block2 removed
-                actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block2) == -1);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove middle then end, then start", expected, actual);
+        return this.tester.test("Remove from middle 2 times", expected, actual);
+    }
+
+    private boolean removeElementTest14() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        MemoryBlock block4 = new MemoryBlock(40, 4000);
+        list.addLast(block4);
+        MemoryBlock block5 = new MemoryBlock(50, 5000);
+        list.addLast(block5);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 5 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block5));
+            list.remove(list.getBlock(2)); // block3 removed
+            actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block5) && list.indexOf(block3) == -1);
+            list.remove(list.getBlock(3)); // block5 removed
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4) && list.indexOf(block5) == -1);
+            list.remove(list.getBlock(0)); // block2 removed
+            actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block2) == -1);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest15(){
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            MemoryBlock block4 = new MemoryBlock(40, 4000);
-            list.addLast(block4);
-            MemoryBlock block5 = new MemoryBlock(50, 5000);
-            list.addLast(block5);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 5 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block5));
-                list.remove(list.getBlock(2)); // block3 removed
-                actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block5) && list.indexOf(block3) == -1);
-                list.remove(list.getBlock(2)); // block4 removed
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block5) && list.indexOf(block4) == -1);
-                list.remove(list.getBlock(0)); // block2 removed
-                actualB = (actualB && list.getSize() == 2 && list.getFirst().block.equals(block) && list.getLast().block.equals(block5) && list.indexOf(block2) == -1);
-                list.remove(list.getBlock(1)); // block5 removed
-                actualB = (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block) && list.indexOf(block5) == -1);
-                list.remove(list.getBlock(0)); // block3 removed
-                actual += (actualB && list.getSize() == 0 && list.getFirst() == null && list.getLast() == null && list.indexOf(block) == -1);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove all elements in the list", expected, actual);
-        } 
-        
-        private boolean removeElementTest16(){
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            String expected = TesterMessagesEnum.ERROR + " IllegalArgumentException: index must be between 0 and size";
-            boolean actualB = true;
-            String actual = "";
-            try {
-                actualB = (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
-                list.remove(block2);
-                actual += (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
-            } catch (IllegalArgumentException e){
-                actual = TesterMessagesEnum.ERROR + " IllegalArgumentException: " + e.getMessage();
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove a non existing element", expected, actual);
+        return this.tester.test("Remove middle then end, then start", expected, actual);
+    }
+
+    private boolean removeElementTest15() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        MemoryBlock block4 = new MemoryBlock(40, 4000);
+        list.addLast(block4);
+        MemoryBlock block5 = new MemoryBlock(50, 5000);
+        list.addLast(block5);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 5 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block5));
+            list.remove(list.getBlock(2)); // block3 removed
+            actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block5) && list.indexOf(block3) == -1);
+            list.remove(list.getBlock(2)); // block4 removed
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block5) && list.indexOf(block4) == -1);
+            list.remove(list.getBlock(0)); // block2 removed
+            actualB = (actualB && list.getSize() == 2 && list.getFirst().block.equals(block) && list.getLast().block.equals(block5) && list.indexOf(block2) == -1);
+            list.remove(list.getBlock(1)); // block5 removed
+            actualB = (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block) && list.indexOf(block5) == -1);
+            list.remove(list.getBlock(0)); // block3 removed
+            actual += (actualB && list.getSize() == 0 && list.getFirst() == null && list.getLast() == null && list.indexOf(block) == -1);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-    
-        private boolean removeElementTest17(){
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            MemoryBlock block4 = new MemoryBlock(40, 4000);
-            list.addLast(block4);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
-                list.remove(list.getBlock(0)); // block2 removed
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block2) == -1);
-                list.remove(list.getBlock(0)); // block removed
-                actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block3) && list.getLast().block.equals(block4) && list.indexOf(block) == -1);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove back to back from start", expected, actual);
+        return this.tester.test("Remove all elements in the list", expected, actual);
+    }
+
+    private boolean removeElementTest16() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        String expected = TesterMessagesEnum.ERROR + " IllegalArgumentException: index must be between 0 and size";
+        boolean actualB = true;
+        String actual = "";
+        try {
+            actualB = (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
+            list.remove(block2);
+            actual += (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
+        } catch (IllegalArgumentException e) {
+            actual = TesterMessagesEnum.ERROR + " IllegalArgumentException: " + e.getMessage();
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
-        private boolean removeElementTest18(){
-            LinkedList list = new LinkedList();
-            MemoryBlock block = new MemoryBlock(10, 1000);
-            list.addFirst(block);
-            MemoryBlock block2 = new MemoryBlock(20, 2000);
-            list.addFirst(block2);
-            MemoryBlock block3 = new MemoryBlock(30, 3000);
-            list.addLast(block3);
-            MemoryBlock block4 = new MemoryBlock(40, 4000);
-            list.addLast(block4);
-            String expected = "true";
-            String actual = "";
-            boolean actualB = true;
-            try {
-                actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
-                list.remove(list.getLast().block); // block2 removed
-                actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3) && list.indexOf(block4) == -1);
-                list.remove(list.getLast().block); // block removed
-                actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block) && list.indexOf(block3) == -1);
-            } catch (Exception e) {
-                actual = TesterMessagesEnum.ERROR + e.getMessage();
-            }
-            return this.tester.test("Remove back to back from end", expected, actual);
+        return this.tester.test("Remove a non existing element", expected, actual);
+    }
+
+    private boolean removeElementTest17() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        MemoryBlock block4 = new MemoryBlock(40, 4000);
+        list.addLast(block4);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
+            list.remove(list.getBlock(0)); // block2 removed
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block2) == -1);
+            list.remove(list.getBlock(0)); // block removed
+            actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block3) && list.getLast().block.equals(block4) && list.indexOf(block) == -1);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
+        return this.tester.test("Remove back to back from start", expected, actual);
+    }
+
+    private boolean removeElementTest18() {
+        LinkedList list = new LinkedList();
+        MemoryBlock block = new MemoryBlock(10, 1000);
+        list.addFirst(block);
+        MemoryBlock block2 = new MemoryBlock(20, 2000);
+        list.addFirst(block2);
+        MemoryBlock block3 = new MemoryBlock(30, 3000);
+        list.addLast(block3);
+        MemoryBlock block4 = new MemoryBlock(40, 4000);
+        list.addLast(block4);
+        String expected = "true";
+        String actual = "";
+        boolean actualB = true;
+        try {
+            actualB = (actualB && list.getSize() == 4 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block4));
+            list.remove(list.getLast().block); // block2 removed
+            actualB = (actualB && list.getSize() == 3 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block3) && list.indexOf(block4) == -1);
+            list.remove(list.getLast().block); // block removed
+            actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block2) && list.getLast().block.equals(block) && list.indexOf(block3) == -1);
+        } catch (Exception e) {
+            actual = TesterMessagesEnum.ERROR + e.getMessage();
+        }
+        return this.tester.test("Remove back to back from end", expected, actual);
+    }
 
     ///// remove Index tests /////
     /// tests handling ///
@@ -2216,7 +2220,7 @@ public class TestHandler {
         return this.tester.test("Remove middle Index in the list then remove first", expected, actual);
     }
 
-    private boolean removeIndexTest8(){
+    private boolean removeIndexTest8() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -2241,7 +2245,7 @@ public class TestHandler {
         return this.tester.test("Remove from start then remove from end of the list", expected, actual);
     }
 
-    private boolean removeIndexTest9(){
+    private boolean removeIndexTest9() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -2266,7 +2270,7 @@ public class TestHandler {
         return this.tester.test("Remove from end then remove from start of the list", expected, actual);
     }
 
-    private boolean removeIndexTest10(){
+    private boolean removeIndexTest10() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -2291,7 +2295,7 @@ public class TestHandler {
         return this.tester.test("Remove from end then remove from middle of the list", expected, actual);
     }
 
-    private boolean removeIndexTest11(){
+    private boolean removeIndexTest11() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -2312,11 +2316,11 @@ public class TestHandler {
             actual += (actualB && list.getSize() == 2 && list.getFirst().block.equals(block) && list.getLast().block.equals(block4) && list.indexOf(block3) == -1);
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
-        } 
+        }
         return this.tester.test("Remove from start then remove from middle of the list", expected, actual);
     }
 
-    private boolean removeIndexTest12(){
+    private boolean removeIndexTest12() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -2341,7 +2345,7 @@ public class TestHandler {
         return this.tester.test("Remove from middle 2 times", expected, actual);
     }
 
-    private boolean removeIndexTest13(){
+    private boolean removeIndexTest13() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -2370,7 +2374,7 @@ public class TestHandler {
         return this.tester.test("Remove middle then end, then start", expected, actual);
     }
 
-    private boolean removeIndexTest14(){
+    private boolean removeIndexTest14() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -2401,9 +2405,9 @@ public class TestHandler {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
         return this.tester.test("Remove all Indexs in the list", expected, actual);
-    } 
-    
-    private boolean removeIndexTest15(){
+    }
+
+    private boolean removeIndexTest15() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -2415,7 +2419,7 @@ public class TestHandler {
             actualB = (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
             list.remove(block2);
             actual += (actualB && list.getSize() == 1 && list.getFirst().block.equals(block) && list.getLast().block.equals(block));
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             actual = TesterMessagesEnum.ERROR + " IllegalArgumentException: " + e.getMessage();
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
@@ -2423,7 +2427,7 @@ public class TestHandler {
         return this.tester.test("Remove a non existing node", expected, actual);
     }
 
-    private boolean removeIndexTest16(){
+    private boolean removeIndexTest16() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -2447,7 +2451,8 @@ public class TestHandler {
         }
         return this.tester.test("Remove back to back from start", expected, actual);
     }
-    private boolean removeIndexTest17(){
+
+    private boolean removeIndexTest17() {
         LinkedList list = new LinkedList();
         MemoryBlock block = new MemoryBlock(10, 1000);
         list.addFirst(block);
@@ -2499,7 +2504,7 @@ public class TestHandler {
             case 6:
                 return mallocTest6();
             default:
-                break; 
+                break;
         }
         return false;
     }
@@ -2507,13 +2512,16 @@ public class TestHandler {
     ///// Malloc tests /////
     private boolean mallocTest1() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expectedText = "(20 , 80) \n(0 , 20) ";
+        String expectedText = "(20 , 80)\n(0 , 20)";
         String expected = "true";
         String actual = "";
         try {
             int address = memorySpace.malloc(20);
+            // String s = memorySpace.toString()+" ";
+            // boolean b = memorySpace.toString().equals(expectedText);
+            // boolean b2 = address ==0;
             actual += (address == 0 && memorySpace.toString().equals(expectedText));
-            
+
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
@@ -2522,7 +2530,7 @@ public class TestHandler {
 
     private boolean mallocTest2() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expectedText = "(30 , 70) \n(0 , 10) (10 , 20) ";
+        String expectedText = "(30 , 70)\n(0 , 10) (10 , 20)";
         String expected = "true";
         String actual = "";
         try {
@@ -2537,7 +2545,7 @@ public class TestHandler {
 
     private boolean mallocTest3() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expectedText = "\n(0 , 40) (40 , 40) (80 , 20) ";
+        String expectedText = "\n(0 , 40) (40 , 40) (80 , 20)";
         String expected = "true";
         String actual = "";
         try {
@@ -2553,7 +2561,7 @@ public class TestHandler {
 
     private boolean mallocTest4() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expectedText = "(60 , 40) \n(0 , 10) (10 , 10) (20 , 10) (30 , 30) ";
+        String expectedText = "(60 , 40)\n(0 , 10) (10 , 10) (20 , 10) (30 , 30)";
         String expected = "true";
         String actual = "";
         try {
@@ -2570,7 +2578,7 @@ public class TestHandler {
 
     private boolean mallocTest5() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expectedText = "(60 , 40) \n(0 , 10) (10 , 10) (20 , 10) (30 , 30) ";
+        String expectedText = "(60 , 40)\n(0 , 10) (10 , 10) (20 , 10) (30 , 30)";
         String expected = "true";
         String actual = "";
         try {
@@ -2588,7 +2596,7 @@ public class TestHandler {
 
     private boolean mallocTest6() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expectedText = "(0 , 100) \n";
+        String expectedText = "(0 , 100)\n";
         String expected = "true";
         String actual = "";
         try {
@@ -2632,9 +2640,9 @@ public class TestHandler {
     }
 
     ///// Free tests /////
-    private boolean freeTest1(){
+    private boolean freeTest1() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expectedText = "(0 , 100) \n";
+        String expectedText = "(0 , 100)\n";
         String expected = "true";
         String actual = "";
         try {
@@ -2647,13 +2655,14 @@ public class TestHandler {
         return this.tester.test("Free a block of memory", expected, actual);
     }
 
-    private boolean freeTest2(){
+    private boolean freeTest2() {
         MemorySpace memorySpace = new MemorySpace(100);
         String expectedText = "(0 , 100)\n";
         String expected = TesterMessagesEnum.ERROR + " IllegalArgumentException: index must be between 0 and size";
         String actual = "";
         try {
             memorySpace.free(0);
+            System.out.print(memorySpace.toString());
             actual += (memorySpace.toString().equals(expectedText));
         } catch (IllegalArgumentException e) {
             actual = TesterMessagesEnum.ERROR + " IllegalArgumentException: " + e.getMessage();
@@ -2663,9 +2672,9 @@ public class TestHandler {
         return this.tester.test("Try to free a block of memory when freeList is empty", expected, actual);
     }
 
-    private boolean freeTest3(){
+    private boolean freeTest3() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expectedText = "\n(0 , 100) ";
+        String expectedText = "\n(0 , 100)";
         String expected = "true";
         String actual = "";
         try {
@@ -2678,9 +2687,9 @@ public class TestHandler {
         return this.tester.test("Try to free invalid address", expected, actual);
     }
 
-    private boolean freeTest4(){
+    private boolean freeTest4() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expectedText = "(0 , 50) \n(50 , 50) ";
+        String expectedText = "(0 , 50)\n(50 , 50)";
         String expected = "true";
         String actual = "";
         try {
@@ -2695,10 +2704,10 @@ public class TestHandler {
         return this.tester.test("Try to free address twice in a row", expected, actual);
     }
 
-    private boolean freeTest5(){
+    private boolean freeTest5() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expected1 = "(95 , 5) \n(0 , 20) (20 , 75) ";
-        String expected2 = "(95 , 5) (10 , 10) \n(20 , 75) (0 , 10) ";
+        String expected1 = "(95 , 5)\n(0 , 20) (20 , 75)";
+        String expected2 = "(95 , 5) (10 , 10)\n(20 , 75) (0 , 10)";
         String expected = "true";
         String actual = "";
         boolean actualB = true;
@@ -2716,11 +2725,11 @@ public class TestHandler {
         return this.tester.test("Try to malloc after freed space", expected, actual);
     }
 
-    private boolean freeTest6(){
+    private boolean freeTest6() {
         MemorySpace memorySpace = new MemorySpace(100);
-        String expected1 = "\n(0 , 5) (5 , 20) (25 , 20) (45 , 55) ";
-        String expected2 = "(0 , 5) (25 , 20) \n(5 , 20) (45 , 55) ";
-        String expected3 = "(0 , 5) (40 , 5) \n(5 , 20) (45 , 55) (25 , 15) ";
+        String expected1 = "\n(0 , 5) (5 , 20) (25 , 20) (45 , 55)";
+        String expected2 = "(0 , 5) (25 , 20)\n(5 , 20) (45 , 55)";
+        String expected3 = "(0 , 5) (40 , 5)\n(5 , 20) (45 , 55) (25 , 15)";
         String expected = "true";
         String actual = "";
         boolean actualB = true;
@@ -2740,7 +2749,7 @@ public class TestHandler {
         }
         return this.tester.test("Try to malloc after 2 frees that one doesn't fits", expected, actual);
     }
-    
+
     ///// Defrag tests /////
     /// tests handling ///
     private void mainDefragTest() {
@@ -2751,7 +2760,7 @@ public class TestHandler {
         }
         System.out.println(tester);
     }
-   
+
     private boolean defragTests(int testNumber) {
         switch (testNumber) {
             case 1:
@@ -2771,7 +2780,7 @@ public class TestHandler {
     }
 
     ///// Defrag tests /////
-    private boolean defragTest1(){
+    private boolean defragTest1() {
         MemorySpace memorySpace = new MemorySpace(100);
         String expectedText = "(0 , 100) \n";
         String expected = "true";
@@ -2785,7 +2794,7 @@ public class TestHandler {
         return this.tester.test("Defrag when freeList is empty", expected, actual);
     }
 
-    private boolean defragTest2(){
+    private boolean defragTest2() {
         MemorySpace memorySpace = new MemorySpace(100);
         String expectedText = "\n(0 , 100) ";
         String expected = "true";
@@ -2800,7 +2809,7 @@ public class TestHandler {
         return this.tester.test("Defrag when there is only one block", expected, actual);
     }
 
-    private boolean defragTest3(){
+    private boolean defragTest3() {
         MemorySpace memorySpace = new MemorySpace(100);
         String expected1 = "\n(0 , 5) (5 , 20) (25 , 20) (45 , 55) ";
         String expected2 = "(0 , 5) (5 , 20) \n(25 , 20) (45 , 55) ";
@@ -2825,8 +2834,7 @@ public class TestHandler {
         return this.tester.test("defrag successfully 2 consecutive elements", expected, actual);
     }
 
-
-    private boolean defragTest4(){
+    private boolean defragTest4() {
         MemorySpace memorySpace = new MemorySpace(100);
         String expected1 = "\n(0 , 5) (5 , 20) (25 , 20) (45 , 55) ";
         String expected2 = "(0 , 5) (5 , 20) (25 , 20) \n(45 , 55) ";
@@ -2852,7 +2860,7 @@ public class TestHandler {
         return this.tester.test("defrag successfully 3 elements", expected, actual);
     }
 
-    private boolean defragTest5(){
+    private boolean defragTest5() {
         MemorySpace memorySpace = new MemorySpace(100);
         String expected1 = "\n(0 , 5) (5 , 20) (25 , 20) (45 , 55) ";
         String expected2 = "(0 , 5) (25 , 20) \n(5 , 20) (45 , 55) ";
@@ -2880,9 +2888,8 @@ public class TestHandler {
         return this.tester.test("defrag successfully after failed defrag", expected, actual);
     }
 
-
     /// HELPER FUNCTIONS
-    private LinkedList createLinkedList(MemoryBlock [] blocks) {
+    private LinkedList createLinkedList(MemoryBlock[] blocks) {
         LinkedList list = new LinkedList();
         for (int i = blocks.length - 1; i >= 0; i--) {
             list.addFirst(blocks[i]);
