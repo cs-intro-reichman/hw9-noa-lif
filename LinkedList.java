@@ -147,7 +147,7 @@ public class LinkedList {
      * equal to size
      */
     public MemoryBlock getBlock(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index > size || size == 0) {
             throw new IllegalArgumentException("index must be between 0 and size");
         }
         return getNode(index).block;
@@ -188,7 +188,7 @@ public class LinkedList {
             }
         } else {
             Node current = first;
-            while (current.next != null && current != null ) {
+            while (current.next != null && current != null) {
                 if (current.next == node) {
                     current.next = node.next;
                     if (node == last) {
@@ -198,7 +198,7 @@ public class LinkedList {
                 current = current.next;
             }
         }
-		size--;
+        size--;
     }
 
     /**
@@ -212,20 +212,20 @@ public class LinkedList {
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("index must be between 0 and size");
         }
-		if (index == 0){
-			first = first.next;
-			if (size==1){
-				last=null;
-			}
-		} else{
-			Node previuosNode = getNode(index-1);
-			Node nodeToRemove = previuosNode.next;
-			previuosNode.next = nodeToRemove.next;
+        if (index == 0) {
+            first = first.next;
+            if (size == 1) {
+                last = null;
+            }
+        } else {
+            Node previuosNode = getNode(index - 1);
+            Node nodeToRemove = previuosNode.next;
+            previuosNode.next = nodeToRemove.next;
 
-			if (nodeToRemove==last){
-				last=previuosNode;
-			}
-		}
+            if (nodeToRemove == last) {
+                last = previuosNode;
+            }
+        }
         size--;
     }
 
@@ -259,7 +259,7 @@ public class LinkedList {
         Node current = first;
         while (current != null) {
             // str += current.toString();
-			str += "(" + current.block.baseAddress + " , " + current.block.length + ")";
+            str += "(" + current.block.baseAddress + " , " + current.block.length + ")";
             if (current.next != null) {
                 str += " ";
             }
