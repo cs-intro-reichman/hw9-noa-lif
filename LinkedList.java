@@ -190,17 +190,22 @@ public class LinkedList {
 
         if (node == first) {
             first = first.next;
-            if (size == 1) {
+            size--;
+            if (size == 0) {
                 last = null;
             }
+            if (size == 1) {
+                last = first;
+            }
+            size--;
+        } else if (node == last) {
+            getNode(size - 1).next = null;
+            size--;
         } else {
             Node current = first.next;
-            while (current != null) {
+            while (current.next != null) {
                 if (current == node) {
                     current.next = node.next;
-                    if (node == last) {
-                        last = current;
-                    }
                     size--;
                 }
                 current = current.next;
