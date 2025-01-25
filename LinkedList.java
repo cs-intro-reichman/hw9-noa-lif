@@ -91,6 +91,9 @@ public class LinkedList {
 
         if (index == 0) {
             addFirst(block);
+            if (size == 1) {
+                last = newNode;
+            }
         } else if (index == size) {
             addLast(block);
         } else {
@@ -147,7 +150,10 @@ public class LinkedList {
      * equal to size
      */
     public MemoryBlock getBlock(int index) {
-        if (index < 0 || index >= size || size == 0) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("index must be between 0 and size");
+        }
+        if (size == 0) {
             throw new IllegalArgumentException("index must be between 0 and size");
         }
         return getNode(index).block;
@@ -167,7 +173,7 @@ public class LinkedList {
                 return index;
             }
             index++;
-            current=current.next;
+            current = current.next;
         }
         return -1;
     }
@@ -256,15 +262,15 @@ public class LinkedList {
      * A textual representation of this list, for debugging.
      */
     public String toString() {
-        ListIterator itr = new ListIterator(first); 
+        ListIterator itr = new ListIterator(first);
         StringBuilder strBuilder = new StringBuilder();
         while (itr.hasNext()) {
-            Node current = itr.current; 
+            Node current = itr.current;
             strBuilder.append("(")
-                      .append(current.block.baseAddress)
-                      .append(" , ")
-                      .append(current.block.length)
-                      .append(")");
+                    .append(current.block.baseAddress)
+                    .append(" , ")
+                    .append(current.block.length)
+                    .append(")");
             itr.next(); // Advance the iterator to the next node
             if (itr.hasNext()) { // Add a space only if there are more nodes
                 strBuilder.append(" ");

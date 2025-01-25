@@ -3,6 +3,7 @@ public class TestHandler {
     
     public TestHandler() {
         this.tester = new Tester();
+        addFirstTest1();
     }
  
     private int getNumberOfTests(TesterQuestionEnum question){

@@ -42,6 +42,16 @@ public class LinkedListTest {
         // list.remove(3); //error
         // list.remove(-1);//error
 
+        list = new LinkedList();
+        list.add(0, memoryBlockList[0]); 
+        System.out.println(list); //(0,1)
+
+        list = new LinkedList();
+        list.addFirst(memoryBlockList[4]);
+        int index = list.indexOf(memoryBlockList[4]);
+        System.out.println(list.getNode(index).block.equals(memoryBlockList[4]));
+
+
         // Makes a few memory allocations, and keeps the addresses
         // of the allocated blocks in an array.
         int[] addresses = new int[20];
