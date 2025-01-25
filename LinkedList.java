@@ -185,7 +185,7 @@ public class LinkedList {
      */
     public void remove(Node node) {
         if (node == null || size == 0) {
-            return;
+            throw new NullPointerException();
         }
 
         if (node == first) {
@@ -194,18 +194,18 @@ public class LinkedList {
                 last = null;
             }
         } else {
-            Node current = first;
-            while (current.next != null && current != null) {
-                if (current.next == node) {
+            Node current = first.next;
+            while (current != null) {
+                if (current == node) {
                     current.next = node.next;
                     if (node == last) {
                         last = current;
                     }
+                    size--;
                 }
                 current = current.next;
             }
         }
-        size--;
     }
 
     /**
